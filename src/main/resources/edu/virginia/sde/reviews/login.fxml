@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.virginia.sde.reviews.LoginController">
+   <children>
+      <Button layoutX="334.0" layoutY="244.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="154.0" text="Create User" />
+      <Button layoutX="160.0" layoutY="243.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="154.0" text="Login" />
+      <PasswordField layoutX="151.0" layoutY="200.0" prefHeight="26.0" prefWidth="344.0" />
+      <TextField layoutX="151.0" layoutY="165.0" prefHeight="26.0" prefWidth="344.0" />
+      <Label layoutX="77.0" layoutY="170.0" text="Username:" />
+      <Label layoutX="79.0" layoutY="205.0" text="Password:" />
+      <Label layoutX="182.0" layoutY="101.0" text="Please Enter Login Information or Create New User" />
+      <Label layoutX="198.0" layoutY="60.0" text="Welcome to the Course Review Application" />
+   </children>
+</AnchorPane>
