@@ -2,7 +2,7 @@ package edu.virginia.sde.reviews;
 
 import javafx.fxml.FXML;
 
-import java.awt.*;
+import javafx.scene.control.Label;
 
 public class CourseSearchController {
 
