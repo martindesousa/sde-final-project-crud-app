@@ -33,5 +33,6 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
+      <Label fx:id="searchErrorLabel" layoutX="50.0" layoutY="52.0" prefHeight="18.0" prefWidth="509.0" textFill="RED" />
    </children>
 </AnchorPane>
