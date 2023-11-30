@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400" prefWidth="600" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.virginia.sde.reviews.CourseReviewsController">
+   <children>
+      <TableView layoutX="10.0" layoutY="72.0" prefHeight="258.0" prefWidth="570.0">
+        <columns>
+          <TableColumn prefWidth="101.20001411437988" text="Subject" />
+          <TableColumn prefWidth="98.79998016357422" text="Number" />
+            <TableColumn prefWidth="303.0000305175781" text="Title" />
+            <TableColumn prefWidth="68.80001831054688" text="Rating" />
+        </columns>
+      </TableView>
+      <ScrollBar layoutX="579.0" layoutY="72.0" orientation="VERTICAL" prefHeight="258.0" prefWidth="14.0" />
+   </children>
+</AnchorPane>
