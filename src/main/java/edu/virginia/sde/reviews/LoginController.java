@@ -1,7 +1,9 @@
 package edu.virginia.sde.reviews;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -14,8 +16,19 @@ public class LoginController {
         this.stage = stage;
     }
 
+    @FXML
+    private TextField usernameField;
+
+    @FXML
+    private TextField passwordField;
+
     public void handleLogin(){
         LoginValidator validator = new LoginValidator();
+        String usernameString = usernameField.getText();
+        String passwordString = passwordField.getText();
+        if(validator.validateLogin(usernameString,passwordString)){
+            successfulLogIn();
+        }
 
     }
 
@@ -26,6 +39,7 @@ public class LoginController {
             var newScene = new Scene(fxmlLoader.load());
             var controller = (CourseSearchController) fxmlLoader.getController();
             controller.setStage(stage);
+            stage.setTitle("Course Search");
             stage.setScene(newScene);
             stage.show();
         } catch (IOException e) {
