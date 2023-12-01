@@ -77,6 +77,9 @@ public class CourseSearchController {
     public void setTable(){
 
         //This code was based on the NYT best sellers tableView example
+        // and documentation of tableViews given while hovering over tableView Class
+
+        courseTable.getItems().clear();
 
         List<Course> courseList = service.getAllCourses();
 

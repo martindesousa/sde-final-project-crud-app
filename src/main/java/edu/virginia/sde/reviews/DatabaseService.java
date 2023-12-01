@@ -35,6 +35,7 @@ public class DatabaseService {
     public void addUser(User user)
     {
         try {
+            session.beginTransaction();
             session.persist(user);
             session.getTransaction().commit();
         } catch (PersistenceException e) {
@@ -101,6 +102,7 @@ public class DatabaseService {
 
     public void addCourse(Course course){
         try {
+            session.beginTransaction();
             session.persist(course);
             session.getTransaction().commit();
         } catch (PersistenceException e) {
@@ -145,6 +147,7 @@ public class DatabaseService {
     public boolean removeReview(Review review)
     {
         try {
+            session.beginTransaction();
             session.remove(review);
             session.getTransaction().commit();
             return true;

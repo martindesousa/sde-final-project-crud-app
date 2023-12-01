@@ -13,7 +13,6 @@
             <TableColumn fx:id="titleColumn" prefWidth="303.0000305175781" text="Title" />
         </columns>
       </TableView>
-      <ScrollBar layoutX="579.0" layoutY="72.0" orientation="VERTICAL" prefHeight="242.0" prefWidth="14.0" />
       <Button layoutX="534.0" layoutY="23.0" mnemonicParsing="false" onAction="#handleLogOut" text="Log Out" />
       <Button layoutX="458.0" layoutY="23.0" mnemonicParsing="false" onAction="#handleSearch" text="Search" />
       <TextField fx:id="searchSubject" layoutX="75.0" layoutY="23.0" prefHeight="26.0" prefWidth="65.0" />
