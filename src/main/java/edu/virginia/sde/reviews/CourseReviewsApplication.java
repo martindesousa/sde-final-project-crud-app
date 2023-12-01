@@ -7,11 +7,19 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.hibernate.Session;
+
+import java.util.logging.Level;
 
 public class CourseReviewsApplication extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
+
+        //From ClientDemo
+        java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
 
         // this was based on the start class from JavaFXMLHotDogVotesApplication and the HelloWorldApplication
 

@@ -64,4 +64,12 @@ public class Course {
     public void setCourseTitle(String courseTitle) {
         this.courseTitle = courseTitle;
     }
+
+    public boolean conflictsWith(Course course) {
+        if(this.courseTitle.equals(course.courseTitle))
+        {
+            return true;
+        }
+        return false;
+    }
 }

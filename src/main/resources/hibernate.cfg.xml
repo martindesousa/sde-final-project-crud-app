@@ -4,7 +4,7 @@
         <property name="format_sql">false</property>
         <property name="dialect">org.hibernate.community.dialect.SQLiteDialect</property>
         <property name="connection.driver_class">org.sqlite.JDBC</property>
-        <property name="connection.url">jdbc:sqlite:my_db.sqlite3</property>
+        <property name="connection.url">jdbc:sqlite:course_review_db.sqlite</property>
 
         <property name="hibernate.hbm2ddl.auto" >update</property>
 
