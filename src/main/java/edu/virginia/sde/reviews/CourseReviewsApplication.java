@@ -12,8 +12,13 @@ public class CourseReviewsApplication extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("course-search.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
+
+        // this was based on the start class from JavaFXMLHotDogVotesApplication and the HelloWorldApplication
+
+        var fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
+        var scene = new Scene(fxmlLoader.load());
+        var controller = (LoginController) fxmlLoader.getController();
+        controller.setStage(stage);
         stage.setTitle("Login");
         stage.setScene(scene);
         stage.show();

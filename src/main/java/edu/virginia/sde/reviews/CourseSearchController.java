@@ -2,8 +2,13 @@ package edu.virginia.sde.reviews;
 
 import javafx.fxml.FXML;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class CourseSearchController {
 
@@ -20,7 +25,16 @@ public class CourseSearchController {
     @FXML
     private TextField newCourseTitle;
 
+    private Stage stage;
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
     public void handleAddCourse(){
+
+        // got info on getting text from textfields from this link
+        // https://docs.oracle.com/javafx/2/ui_controls/text-field.htm
 
         NewCourseValidator validator = new NewCourseValidator();
 
@@ -45,7 +59,17 @@ public class CourseSearchController {
     }
 
     public void handleLogOut(){
-
+        //This was based on the JavaFXML HotDog votes "handleGraph" method
+        try {
+            var fxmlLoader = new FXMLLoader(LoginController.class.getResource("login.fxml"));
+            var newScene = new Scene(fxmlLoader.load());
+            var controller = (LoginController) fxmlLoader.getController();
+            controller.setStage(stage);
+            stage.setScene(newScene);
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
