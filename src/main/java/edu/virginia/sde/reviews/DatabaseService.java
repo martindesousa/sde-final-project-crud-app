@@ -4,6 +4,9 @@ import jakarta.persistence.PersistenceException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 public class DatabaseService {
@@ -82,5 +85,72 @@ public class DatabaseService {
             //ERROR OCCURRED WHEN TRYING TO REMOVE REVIEW
             return false;
         }
+    }
+
+    public ArrayList<Course> getAllCourses()
+    {
+        String hql = "FROM Course c";
+        Query<Course> query = session.createQuery(hql, Course.class);
+        return (ArrayList<Course>) query.getResultList();
+    }
+
+    public ArrayList<Course> getSameMnemonicCourses(String mnemonic)
+    {
+        String hql = "FROM Course c WHERE c.subjectMnemonic = :"+mnemonic;
+        Query<Course> query = session.createQuery(hql, Course.class);
+        return (ArrayList<Course>) query.getResultList();
+    }
+
+    public ArrayList<Course> getSameMnemonicCourses(String mnemonic, ArrayList<Course> courses)
+    {
+        ArrayList<Course> returnList = new ArrayList<>();
+        for(Course c : courses)
+        {
+            if(c.getSubjectMnemonic().equals(mnemonic))
+            {
+                returnList.add(c);
+            }
+        }
+        return returnList;
+    }
+
+    public ArrayList<Course> getSameNumberCourses(int courseNumber)
+    {
+        String hql = "FROM Course c WHERE c.courseNumber = :"+courseNumber;
+        Query<Course> query = session.createQuery(hql, Course.class);
+        return (ArrayList<Course>) query.getResultList();
+    }
+
+    public ArrayList<Course> getSameNumberCourses(int courseNumber, ArrayList<Course> courses)
+    {
+        ArrayList<Course> returnList = new ArrayList<>();
+        for(Course c : courses)
+        {
+            if(c.getCourseNumber() == (courseNumber))
+            {
+                returnList.add(c);
+            }
+        }
+        return returnList;
+    }
+
+    public ArrayList<Course> getSameTitleCourses(String title)
+    {
+        String hql = "FROM Course c WHERE c.courseTitle = :"+title;
+        Query<Course> query = session.createQuery(hql, Course.class);
+        return (ArrayList<Course>) query.getResultList();
+    }
+
+    public ArrayList<Course> getSameTitleCourses(String title, ArrayList<Course> courses)
+    {
+        ArrayList<Course> returnList = new ArrayList<>();
+        for(Course c : courses)
+        {
+            if(c.getCourseTitle().equals(title))
+            {
+                returnList.add(c);
+            }
+        }
+        return returnList;
     }
 }
