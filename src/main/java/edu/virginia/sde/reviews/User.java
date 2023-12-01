@@ -3,7 +3,7 @@ package edu.virginia.sde.reviews;
 import jakarta.persistence.*;
 @Entity
 @Table(name = "USERS")
-public class Users {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,10 +13,14 @@ public class Users {
     @Column(name = "PASSWORD", nullable = false)
     private String password;
 
-    public Users(String username, String password)
+    public User(String username, String password)
     {
         this.username = username;
         this.password = password;
+    }
+
+    public User() {
+
     }
 
     public String getUsername() {

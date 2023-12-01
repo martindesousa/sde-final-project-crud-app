@@ -12,19 +12,19 @@ public class Review {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "USERNAME")
-    private Users user;
+    private User user;
 
     @Column(name = "RATING", nullable = false)
     private int rating;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "COURSE")
-    private Courses course;
+    private Course course;
 
     @Column(name = "COMMENT", nullable = false)
     private String comment;
 
-    public Review(int id, Users user, int rating, Courses course, String comment)
+    public Review(int id, User user, int rating, Course course, String comment)
     {
         this.id = id;
         this.user = user;
@@ -45,11 +45,11 @@ public class Review {
         this.id = id;
     }
 
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
@@ -61,11 +61,11 @@ public class Review {
         this.rating = rating;
     }
 
-    public Courses getCourse() {
+    public Course getCourse() {
         return course;
     }
 
-    public void setCourse(Courses course) {
+    public void setCourse(Course course) {
         this.course = course;
     }
 
