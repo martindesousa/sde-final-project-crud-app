@@ -26,6 +26,8 @@ public class CourseReviewsApplication extends Application{
         var fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
         var scene = new Scene(fxmlLoader.load());
         var controller = (LoginController) fxmlLoader.getController();
+        DatabaseService service = new DatabaseService(session);
+        controller.setService(service);
         controller.setStage(stage);
         stage.setTitle("Login");
         stage.setScene(scene);

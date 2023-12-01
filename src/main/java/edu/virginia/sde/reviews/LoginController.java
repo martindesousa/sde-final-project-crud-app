@@ -14,6 +14,8 @@ public class LoginController {
 
     private Stage stage;
 
+    private DatabaseService service;
+
     public void setStage(Stage stage) {
         this.stage = stage;
     }
@@ -26,6 +28,10 @@ public class LoginController {
 
     @FXML
     private Label messageLabel;
+
+    public void setService(DatabaseService service) {
+        this.service = service;
+    }
 
     public void handleExit() {
         Stage stage = (Stage) this.stage.getScene().getWindow();
@@ -49,6 +55,7 @@ public class LoginController {
 
         if(!LoginValidator.validateUsername(usernameString)){
             messageLabel.setText("Username Not Found");
+            return;
         }
 
         if(!LoginValidator.validatePassword(usernameString,passwordString)){
@@ -98,6 +105,8 @@ public class LoginController {
             var newScene = new Scene(fxmlLoader.load());
             var controller = (CourseSearchController) fxmlLoader.getController();
             controller.setStage(stage);
+            controller.setService(service);
+            controller.setTable();
             stage.setTitle("Course Search");
             stage.setScene(newScene);
             stage.show();

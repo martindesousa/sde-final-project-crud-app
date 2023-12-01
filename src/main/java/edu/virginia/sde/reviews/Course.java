@@ -21,8 +21,8 @@ public class Course {
     @Column(name = "COURSE_TITLE", nullable = false)
     private String courseTitle;
 
-    public Course(int id, String subjectMnemonic, int courseNumber, String courseTitle) {
-        this.id = id;
+    public Course(String subjectMnemonic, int courseNumber, String courseTitle) {
+        //this.id = id;
         this.courseNumber = courseNumber;
         this.subjectMnemonic = subjectMnemonic;
         this.courseTitle = courseTitle;
