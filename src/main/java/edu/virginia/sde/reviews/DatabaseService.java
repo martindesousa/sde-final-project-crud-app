@@ -23,7 +23,7 @@ public class DatabaseService {
         }
     }
 
-    public void addCourse(Course course)
+    public boolean addCourse(Course course)
     {
         String hql = "FROM Course c WHERE c.subjectMnemonic = :"+course.getSubjectMnemonic()+
                 " AND c.courseNumber = :"+course.getCourseNumber();
@@ -32,14 +32,15 @@ public class DatabaseService {
         {
             if(c.conflictsWith(course))
             {
-                return;
+                return false;
             }
         }
         session.persist(course);
         session.getTransaction().commit();
+        return true;
     }
 
-    public void removeCourse(Course course)
+    public boolean removeCourse(Course course)
     {
 //        String hql = "FROM Review r WHERE r.course = :"+course;
 //        Query<Review> query = session.createQuery(hql, Review.class);
@@ -47,8 +48,28 @@ public class DatabaseService {
 //        {
 //            session.remove(r);
 //        }
-        session.remove(course);
-        session.getTransaction().commit();
+        try {
+            session.remove(course);
+            session.getTransaction().commit();
+            return true;
+        } catch (PersistenceException e) {
+            //ERROR OCCURRED WHEN TRYING TO REMOVE COURSE
+            return false;
+        }
+    }
+
+    public boolean addReview(Review review)
+    {
+        String hql = "FROM Review r WHERE r.user = :"+review.getUser()+
+                " AND r.course = :"+review.getCourse();
+        Query<Review> query = session.createQuery(hql, Review.class);
+        if(query.list().isEmpty()) {
+            session.persist(review);
+            session.getTransaction().commit();
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
