@@ -68,10 +68,12 @@ public class LoginController {
 
         if(usernameString.equals("")){
             messageLabel.setText("Please Enter a Username");
+            return;
         }
 
         if(passwordString.equals("")){
             messageLabel.setText("Please Enter a Password");
+            return;
         }
 
         if(!NewUserValidator.validateUsername(usernameString)){
@@ -81,6 +83,7 @@ public class LoginController {
 
         if(!NewUserValidator.validatePassword(passwordString)){
             messageLabel.setText("Password Must Be at Least 8 Characters");
+            return;
         }
 
         messageLabel.setText("User Created Successfully");
