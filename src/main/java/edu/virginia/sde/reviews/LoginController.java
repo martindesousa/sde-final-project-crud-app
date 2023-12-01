@@ -54,17 +54,18 @@ public class LoginController {
             return;
         }
 
-        if(!LoginValidator.validateUsername(usernameString)){
+        if(!service.usernameExists(usernameString)){
             messageLabel.setText("Username Not Found");
             return;
         }
 
-        if(!LoginValidator.validatePassword(usernameString,passwordString)){
+        if(!service.passwordCorrect(usernameString,passwordString)){
             messageLabel.setText("Incorrect Password");
             return;
         }
 
         messageLabel.setText("");
+
         successfulLogIn();
 
     }
@@ -84,7 +85,7 @@ public class LoginController {
             return;
         }
 
-        if(!NewUserValidator.validateUsername(usernameString)){
+        if(service.usernameExists(usernameString)){
             messageLabel.setText("This Username is Already Taken");
             return;
         }
@@ -95,6 +96,7 @@ public class LoginController {
         }
 
         messageLabel.setText("User Created Successfully");
+        service.addUser(new User(usernameString, passwordString));
         //add to database
 
     }

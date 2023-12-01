@@ -1,30 +1,25 @@
 package edu.virginia.sde.reviews;
 
+import com.sun.javafx.logging.PlatformLogger;
 import jakarta.persistence.PersistenceException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 
 public class DatabaseService {
 
-    /*
+
 
     public static void main(String[] args) {
         java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
         Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
         DatabaseService service = new DatabaseService(session);
-        service.addCourse(new Course("hi", 9999, "yo"));
-        for(Course i: service.getAllCourses()){
-            System.out.println(i.getCourseTitle());
-        }
+        service.addUser(new User("ridge","RidgeMartinJad"));
         //System.out.println(service.getAllCourses().toString());
     }
-     */
+
     private Session session;
     public DatabaseService(Session session)
     {
@@ -48,9 +43,9 @@ public class DatabaseService {
         session.close();
     }
 
-    public boolean usernameExists(User user)
+    public boolean usernameExists(String typedUsername)
     {
-        String typedUsername = user.getUsername();
+        //String typedUsername = user.getUsername();
         String hql = "FROM User u WHERE u.username = :username";
         Query<User> query = session.createQuery(hql, User.class);
         query.setParameter("username", typedUsername);
@@ -61,14 +56,13 @@ public class DatabaseService {
         return true;
     }
 
-    public boolean passwordCorrect(User user)
+    public boolean passwordCorrect(String typedUsername, String typedPassword)
     {
-        String typedUsername = user.getUsername();
-        String typedPassword = user.getPassword();
-        if (!usernameExists(user))
+        /*if (!usernameExists(user))
         {
             return false;
         }
+        */
         String hql = "FROM User u WHERE u.username = :username";
         Query<User> query = session.createQuery(hql, User.class);
         query.setParameter("username", typedUsername);
@@ -79,26 +73,24 @@ public class DatabaseService {
         return false;
     }
 
-    /*
-    public boolean addCourse(Course course)
+
+    public boolean existingCourse(Course course)
     {
         String hql = "FROM Course c WHERE c.subjectMnemonic = :"+course.getSubjectMnemonic()+
                 " AND c.courseNumber = :"+course.getCourseNumber();
         Query<Course> query = session.createQuery(hql, Course.class);
         for(Course c : query.getResultList())
         {
-            if(c.conflictsWith(course))
+            if(c.shareTitle(course))
             {
                 return false;
             }
         }
-        session.persist(course);
-        session.getTransaction().commit();
         return true;
 
     }
 
-     */
+
 
     public void addCourse(Course course){
         try {

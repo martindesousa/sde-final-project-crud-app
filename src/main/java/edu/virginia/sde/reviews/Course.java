@@ -2,8 +2,6 @@ package edu.virginia.sde.reviews;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-
 @Entity
 @Table(name = "COURSES")
 public class Course {
@@ -65,7 +63,7 @@ public class Course {
         this.courseTitle = courseTitle;
     }
 
-    public boolean conflictsWith(Course course) {
+    public boolean shareTitle(Course course) {
         if(this.courseTitle.equals(course.courseTitle))
         {
             return true;
