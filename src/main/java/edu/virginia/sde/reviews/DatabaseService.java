@@ -10,11 +10,28 @@ import java.util.List;
 import java.util.logging.Level;
 
 public class DatabaseService {
+
+    /*
+
+    public static void main(String[] args) {
+        java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        DatabaseService service = new DatabaseService(session);
+        service.addCourse(new Course("hi", 9999, "yo"));
+        for(Course i: service.getAllCourses()){
+            System.out.println(i.getCourseTitle());
+        }
+        //System.out.println(service.getAllCourses().toString());
+    }
+     */
     private Session session;
     public DatabaseService(Session session)
     {
         this.session = session;
     }
+
+
     public void addUser(User user)
     {
         try {
@@ -57,6 +74,7 @@ public class DatabaseService {
         return false;
     }
 
+    /*
     public boolean addCourse(Course course)
     {
         String hql = "FROM Course c WHERE c.subjectMnemonic = :"+course.getSubjectMnemonic()+
@@ -72,7 +90,21 @@ public class DatabaseService {
         session.persist(course);
         session.getTransaction().commit();
         return true;
+
     }
+
+     */
+
+    public void addCourse(Course course){
+        try {
+            session.persist(course);
+            session.getTransaction().commit();
+        } catch (PersistenceException e) {
+            System.out.println("Virginia already added!");
+        }
+    }
+
+
 
     public boolean removeCourse(Course course)
     {

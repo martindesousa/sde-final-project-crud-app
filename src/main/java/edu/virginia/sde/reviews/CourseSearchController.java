@@ -143,6 +143,7 @@ public class CourseSearchController {
         addCourseErrorLabel.setText("");
 
         service.addCourse(new Course(subject, Integer.parseInt(number), title));
+        setTable();
         //add to database
         //
 
@@ -162,6 +163,7 @@ public class CourseSearchController {
             var controller = (LoginController) fxmlLoader.getController();
             controller.setStage(stage);
             controller.setService(service);
+            stage.setTitle("Login");
             stage.setScene(newScene);
             stage.show();
         } catch (IOException e) {
