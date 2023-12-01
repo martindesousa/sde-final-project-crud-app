@@ -4,15 +4,11 @@ import javafx.scene.control.Label;
 
 public class NewCourseValidator {
 
-    public boolean ValidateTitle(String text){
-        if(text == null){return false;}
-        if(text.length() < 1){return false;}
-        if(text.length() >50){return false;}
-        return true;
+    public static boolean ValidateTitle(String text){
+        return ((text.length() > 0) && (text.length()<= 50));
     }
 
-    public boolean ValidateNumber(String number){
-        if(number == null){return false;}
+    public static boolean ValidateNumber(String number){
         if(number.length()!=4){return false;}
         char[] numberArray = number.toCharArray();
         for(int i=0;i<4;i++){
@@ -28,11 +24,8 @@ public class NewCourseValidator {
 
     }
 
-    public boolean ValidateSubject(String subject){
-
-        if(subject == null){return false;}
-        if(subject.length()<2){return false;}
-        if(subject.length()>4){return false;}
+    public static boolean ValidateSubject(String subject){
+        if(subject.length()<2 || subject.length() > 4){return false;}
         subject = subject.toUpperCase();
         char[] numberArray = subject.toCharArray();
         for(int i=0;i<subject.length();i++){

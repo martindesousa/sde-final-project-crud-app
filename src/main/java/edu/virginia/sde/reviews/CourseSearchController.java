@@ -36,15 +36,34 @@ public class CourseSearchController {
         // got info on getting text from textfields from this link
         // https://docs.oracle.com/javafx/2/ui_controls/text-field.htm
 
-        NewCourseValidator validator = new NewCourseValidator();
+        String subject = newCourseSubject.getText();
+        String number = newCourseNumber.getText();
+        String title = newCourseTitle.getText();
 
-        if(!validator.ValidateSubject(newCourseSubject.getText())) {
+        if(subject.equals("")){
+            addCourseErrorLabel.setText("Please Enter Course Subject");
+            return;
+        }
+        if(number.equals("")){
+            addCourseErrorLabel.setText("Please Enter Course Number");
+            return;
+        }
+        if(title.equals("")){
+            addCourseErrorLabel.setText("Please Enter Course Title");
+            return;
+        }
+
+
+
+        if(!NewCourseValidator.ValidateSubject(subject)) {
             addCourseErrorLabel.setText("Course Subject Must Be 2-4 Letters");
             return;
-        }else if(!validator.ValidateNumber(newCourseNumber.getText())) {
+        }
+        if(!NewCourseValidator.ValidateNumber(number)) {
             addCourseErrorLabel.setText("Course Number Must Be 4 Numbers");
             return;
-        }else if(!validator.ValidateTitle(newCourseTitle.getText())) {
+        }
+        if(!NewCourseValidator.ValidateTitle(title)) {
             addCourseErrorLabel.setText("Course Title Must Be Between 1 and 50 Characters Long");
             return;
         }

@@ -2,10 +2,14 @@ package edu.virginia.sde.reviews;
 
 public class NewUserValidator {
 
-    public boolean validate(String username, String password){
-        if(username == null || password == null){return false;}
-        if(username.equals("") || password.equals("")){return false;}
+    public static boolean validateUsername(String username){
         return true;
+        //return !LoginValidator.validateUsername(username);
+
+    }
+
+    public static boolean validatePassword(String password){
+        return password.length() >= 8;
 
     }
 
