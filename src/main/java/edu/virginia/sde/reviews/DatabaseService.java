@@ -28,7 +28,7 @@ public class DatabaseService {
         String hql = "FROM Course c WHERE c.subjectMnemonic = :"+course.getSubjectMnemonic()+
                 " AND c.courseNumber = :"+course.getCourseNumber();
         Query<Course> query = session.createQuery(hql, Course.class);
-        for(Course c : query.list())
+        for(Course c : query.getResultList())
         {
             if(c.conflictsWith(course))
             {
@@ -63,7 +63,7 @@ public class DatabaseService {
         String hql = "FROM Review r WHERE r.user = :"+review.getUser()+
                 " AND r.course = :"+review.getCourse();
         Query<Review> query = session.createQuery(hql, Review.class);
-        if(query.list().isEmpty()) {
+        if(query.getResultList().isEmpty()) {
             session.persist(review);
             session.getTransaction().commit();
             return true;
@@ -72,6 +72,15 @@ public class DatabaseService {
         }
     }
 
-
-
+    public boolean removeReview(Review review)
+    {
+        try {
+            session.remove(review);
+            session.getTransaction().commit();
+            return true;
+        } catch (PersistenceException e) {
+            //ERROR OCCURRED WHEN TRYING TO REMOVE REVIEW
+            return false;
+        }
+    }
 }
