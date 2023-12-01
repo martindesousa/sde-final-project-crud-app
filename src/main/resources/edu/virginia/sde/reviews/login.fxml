@@ -5,7 +5,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.virginia.sde.reviews.LoginController">
    <children>
-      <Button layoutX="334.0" layoutY="244.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="154.0" text="Create User" />
+      <Button layoutX="334.0" layoutY="244.0" mnemonicParsing="false" onAction="#handleCreateUser" prefHeight="26.0" prefWidth="154.0" text="Create User" />
       <Button layoutX="160.0" layoutY="243.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="26.0" prefWidth="154.0" text="Log In" />
       <PasswordField fx:id="passwordField" layoutX="151.0" layoutY="200.0" prefHeight="26.0" prefWidth="344.0" />
       <TextField fx:id="usernameField" layoutX="151.0" layoutY="165.0" prefHeight="26.0" prefWidth="344.0" />
@@ -13,5 +13,6 @@
       <Label layoutX="79.0" layoutY="205.0" text="Password:" />
       <Label layoutX="182.0" layoutY="101.0" text="Please Enter Login Information or Create New User" />
       <Label layoutX="198.0" layoutY="60.0" text="Welcome to the Course Review Application" />
+      <Label fx:id="errorLabel" alignment="TOP_CENTER" layoutX="50.0" layoutY="300.0" prefHeight="18.0" prefWidth="537.0" textAlignment="CENTER" textFill="RED" />
    </children>
 </AnchorPane>

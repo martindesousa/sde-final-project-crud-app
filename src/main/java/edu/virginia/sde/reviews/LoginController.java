@@ -3,6 +3,7 @@ package edu.virginia.sde.reviews;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -22,13 +23,35 @@ public class LoginController {
     @FXML
     private TextField passwordField;
 
+    @FXML
+    private Label errorLabel;
+
     public void handleLogin(){
         LoginValidator validator = new LoginValidator();
         String usernameString = usernameField.getText();
         String passwordString = passwordField.getText();
-        if(validator.validateLogin(usernameString,passwordString)){
-            successfulLogIn();
+
+
+        if(!validator.validatePassword(usernameString,passwordString)){
+            errorLabel.setText("Please Enter a Valid Login or Create New User");
+            return;
+
         }
+        errorLabel.setText("");
+        successfulLogIn();
+
+    }
+
+    public void handleCreateUser(){
+        NewUserValidator validator = new NewUserValidator();
+        String usernameString = usernameField.getText();
+        String passwordString = passwordField.getText();
+        if(!validator.validate(usernameString,passwordString)){
+            errorLabel.setText("Please Enter New User Login Information");
+            return;
+        }
+        errorLabel.setText("");
+        successfulLogIn();
 
     }
 
