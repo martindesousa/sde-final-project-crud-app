@@ -10,6 +10,6 @@
 
         <mapping class="edu.virginia.sde.reviews.Users" />
         <mapping class="edu.virginia.sde.reviews.Courses" />
-        <mapping class="edu.virginia.sde.reviews.Reviews" />
+        <mapping class="edu.virginia.sde.reviews.Review" />
     </session-factory>
 </hibernate-configuration>

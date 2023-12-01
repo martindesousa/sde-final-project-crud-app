@@ -1,0 +1,79 @@
+package edu.virginia.sde.reviews;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "REVIEWS")
+public class Review {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
+    private int id;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "USERNAME")
+    private Users user;
+
+    @Column(name = "RATING", nullable = false)
+    private int rating;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "COURSE")
+    private Courses course;
+
+    @Column(name = "COMMENT", nullable = false)
+    private String comment;
+
+    public Review(int id, Users user, int rating, Courses course, String comment)
+    {
+        this.id = id;
+        this.user = user;
+        this.rating = rating;
+        this.course = course;
+        this.comment = comment;
+    }
+
+    public Review() {
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public Courses getCourse() {
+        return course;
+    }
+
+    public void setCourse(Courses course) {
+        this.course = course;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+}
