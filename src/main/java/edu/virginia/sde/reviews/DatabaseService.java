@@ -26,6 +26,37 @@ public class DatabaseService {
         }
     }
 
+    public boolean usernameExists(User user)
+    {
+        String typedUsername = user.getUsername();
+        String hql = "FROM User u WHERE u.username = :username";
+        Query<User> query = session.createQuery(hql, User.class);
+        query.setParameter("username", typedUsername);
+        if (query.getResultList().isEmpty())
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean passwordCorrect(User user)
+    {
+        String typedUsername = user.getUsername();
+        String typedPassword = user.getPassword();
+        if (!usernameExists(user))
+        {
+            return false;
+        }
+        String hql = "FROM User u WHERE u.username = :username";
+        Query<User> query = session.createQuery(hql, User.class);
+        query.setParameter("username", typedUsername);
+        if (query.getSingleResult().getPassword().equals(typedPassword))
+        {
+            return true;
+        }
+        return false;
+    }
+
     public boolean addCourse(Course course)
     {
         String hql = "FROM Course c WHERE c.subjectMnemonic = :"+course.getSubjectMnemonic()+
