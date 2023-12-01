@@ -43,6 +43,10 @@ public class DatabaseService {
         }
     }
 
+    public void closeSession(){
+        session.close();
+    }
+
     public boolean usernameExists(User user)
     {
         String typedUsername = user.getUsername();

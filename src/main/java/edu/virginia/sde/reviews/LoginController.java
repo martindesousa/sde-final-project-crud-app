@@ -35,6 +35,7 @@ public class LoginController {
 
     public void handleExit() {
         Stage stage = (Stage) this.stage.getScene().getWindow();
+        service.closeSession();
         stage.close();
     }
 
