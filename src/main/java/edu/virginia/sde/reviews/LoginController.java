@@ -3,6 +3,7 @@ package edu.virginia.sde.reviews;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -24,34 +25,66 @@ public class LoginController {
     private TextField passwordField;
 
     @FXML
-    private Label errorLabel;
+    private Label messageLabel;
+
+    public void handleExit() {
+        Stage stage = (Stage) this.stage.getScene().getWindow();
+        stage.close();
+    }
 
     public void handleLogin(){
-        LoginValidator validator = new LoginValidator();
+
         String usernameString = usernameField.getText();
         String passwordString = passwordField.getText();
 
-
-        if(!validator.validatePassword(usernameString,passwordString)){
-            errorLabel.setText("Please Enter a Valid Login or Create New User");
+        if(usernameString.equals("")){
+            messageLabel.setText("Please Enter a Username");
             return;
-
         }
-        errorLabel.setText("");
+
+        if(passwordString.equals("")){
+            messageLabel.setText("Please Enter a Password");
+            return;
+        }
+
+        if(!LoginValidator.validateUsername(usernameString)){
+            messageLabel.setText("Username Not Found");
+        }
+
+        if(!LoginValidator.validatePassword(usernameString,passwordString)){
+            messageLabel.setText("Incorrect Password");
+            return;
+        }
+
+        messageLabel.setText("");
         successfulLogIn();
 
     }
 
     public void handleCreateUser(){
-        NewUserValidator validator = new NewUserValidator();
+
         String usernameString = usernameField.getText();
         String passwordString = passwordField.getText();
-        if(!validator.validate(usernameString,passwordString)){
-            errorLabel.setText("Please Enter New User Login Information");
+
+        if(usernameString.equals("")){
+            messageLabel.setText("Please Enter a Username");
+        }
+
+        if(passwordString.equals("")){
+            messageLabel.setText("Please Enter a Password");
+        }
+
+        if(!NewUserValidator.validateUsername(usernameString)){
+            messageLabel.setText("This Username is Already Taken");
             return;
         }
-        errorLabel.setText("");
-        successfulLogIn();
+
+        if(!NewUserValidator.validatePassword(passwordString)){
+            messageLabel.setText("Password Must Be at Least 8 Characters");
+        }
+
+        messageLabel.setText("User Created Successfully");
+        //add to database
 
     }
 
