@@ -39,5 +39,13 @@ public class User {
         this.password = password;
     }
 
+    public boolean conflictsWith(User user) {
+        if (user.getUsername().equals(this.username))
+        {
+            return true;
+        }
+        return false;
+
+    }
 }
 
