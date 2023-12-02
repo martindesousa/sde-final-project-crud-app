@@ -1,6 +1,7 @@
 package edu.virginia.sde.reviews;
 
 import jakarta.persistence.PersistenceException;
+import jakarta.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -40,7 +41,6 @@ public class DatabaseService {
             session.getTransaction().commit();
         } catch (PersistenceException e) {
             //ERROR OCCURRED WHEN TRYING TO ADD USER
-            return;
         }
     }
 
@@ -106,7 +106,7 @@ public class DatabaseService {
             session.persist(course);
             session.getTransaction().commit();
         } catch (PersistenceException e) {
-            System.out.println("Virginia already added!");
+            // System.out.println("Virginia already added!");
         }
     }
 
