@@ -19,7 +19,6 @@ public class CourseReviewsApplication extends Application{
         //From ClientDemo
         java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
         Session session = HibernateUtil.getSessionFactory().openSession();
-        //session.beginTransaction();
 
         // this was based on the start class from JavaFXMLHotDogVotesApplication and the HelloWorldApplication
 
@@ -32,6 +31,7 @@ public class CourseReviewsApplication extends Application{
         stage.setTitle("Login");
         stage.setScene(scene);
         stage.show();
+
     }
 
 }
