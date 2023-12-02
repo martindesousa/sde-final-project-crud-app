@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class LoginController {
 
@@ -66,7 +67,7 @@ public class LoginController {
 
         messageLabel.setText("");
 
-        successfulLogIn();
+        successfulLogIn(service.getUser(usernameString));
 
     }
 
@@ -97,17 +98,21 @@ public class LoginController {
 
         messageLabel.setText("User Created Successfully");
         service.addUser(new User(usernameString, passwordString));
+        // Perform database operation here (e.g., saving, updating, querying)
+
+
         //add to database
 
     }
 
-    private void successfulLogIn(){
+    private void successfulLogIn(User user){
         try {
             //This was based on the JavaFXML HotDog votes "handleGraph" method
-            var fxmlLoader = new FXMLLoader(LoginController.class.getResource("course-search.fxml"));
+            var fxmlLoader = new FXMLLoader(CourseSearchController.class.getResource("course-search.fxml"));
             var newScene = new Scene(fxmlLoader.load());
             var controller = (CourseSearchController) fxmlLoader.getController();
             controller.setStage(stage);
+            controller.setUser(user);
             controller.setService(service);
             controller.setTable();
             stage.setTitle("Course Search");

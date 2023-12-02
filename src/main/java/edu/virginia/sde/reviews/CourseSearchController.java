@@ -40,6 +40,8 @@ public class CourseSearchController {
 
      */
 
+    private User user;
+
 
     private DatabaseService service;
 
@@ -100,6 +102,8 @@ public class CourseSearchController {
 
     }
 
+    protected void setUser(User user){this.user = user;}
+
     public void setTable(String nameSearch){
         /*ist<Course> courseList = service.getCourseList();
         ObservableList<Course> obvCourseList = FXCollections.observableList(courseList);
@@ -115,6 +119,8 @@ public class CourseSearchController {
         String subject = newCourseSubject.getText();
         String number = newCourseNumber.getText();
         String title = newCourseTitle.getText();
+
+        subject = subject.toUpperCase();
 
         if(subject.equals("")){
             addCourseErrorLabel.setText("Please Enter Course Subject");
@@ -143,9 +149,17 @@ public class CourseSearchController {
             addCourseErrorLabel.setText("Course Title Must Be Between 1 and 50 Characters Long");
             return;
         }
+
+        int intNumber = Integer.parseInt(number);
+
+        if(service.existingCourse(subject, intNumber, title)){
+            addCourseErrorLabel.setText("This Course Already Exists");
+            return;
+        }
+
         addCourseErrorLabel.setText("");
 
-        service.addCourse(new Course(subject, Integer.parseInt(number), title));
+        service.addCourse(new Course(subject.toUpperCase(), intNumber, title));
         setTable();
         //add to database
         //
@@ -153,6 +167,26 @@ public class CourseSearchController {
     }
 
     public void handleSearch(){
+
+
+
+    }
+
+    public void handleCourseSelection(){
+        Course newCourse = courseTable.getSelectionModel().getSelectedItem();
+
+        try {
+            var fxmlLoader = new FXMLLoader(CourseReviewsController.class.getResource("course-reviews.fxml"));
+            var newScene = new Scene(fxmlLoader.load());
+            var controller = (CourseReviewsController) fxmlLoader.getController();
+            controller.setStage(stage);
+            controller.setService(service);
+            stage.setTitle(newCourse.getCourseTitle());
+            stage.setScene(newScene);
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
 
 

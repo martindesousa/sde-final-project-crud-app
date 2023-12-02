@@ -4,7 +4,9 @@ import com.sun.javafx.logging.PlatformLogger;
 import jakarta.persistence.PersistenceException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.sqlite.SQLiteException;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
@@ -17,7 +19,7 @@ public class DatabaseService {
         Session session = HibernateUtil.getSessionFactory().openSession();
         DatabaseService service = new DatabaseService(session);
         service.addUser(new User("ridge","RidgeMartinJad"));
-        //System.out.println(service.getAllCourses().toString());
+
     }
 
     private Session session;
@@ -74,19 +76,23 @@ public class DatabaseService {
     }
 
 
-    public boolean existingCourse(Course course)
+    public boolean existingCourse(String mnemonic, int number, String title)
     {
-        String hql = "FROM Course c WHERE c.subjectMnemonic = :"+course.getSubjectMnemonic()+
-                " AND c.courseNumber = :"+course.getCourseNumber();
+        String hql = "FROM Course c WHERE c.subjectMnemonic = :mnemonic AND c.courseNumber = :number";
         Query<Course> query = session.createQuery(hql, Course.class);
+        query.setParameter("mnemonic", mnemonic);
+        query.setParameter("number", number);
+        if(query.getResultList().isEmpty()){
+            return false;
+        }
         for(Course c : query.getResultList())
         {
-            if(c.shareTitle(course))
+            if(c.getCourseTitle().toUpperCase().equals(title.toUpperCase()))
             {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
 
     }
 
@@ -154,6 +160,13 @@ public class DatabaseService {
         String hql = "FROM Course c";
         Query<Course> query = session.createQuery(hql, Course.class);
         return (ArrayList<Course>) query.getResultList();
+    }
+
+    protected User getUser(String username){
+        String hql = "FROM User u WHERE u.username = :username";
+        Query<User> query = session.createQuery(hql, User.class);
+        query.setParameter("username", username);
+        return query.getSingleResult();
     }
 
     public ArrayList<Course> getSameMnemonicCourses(String mnemonic)
