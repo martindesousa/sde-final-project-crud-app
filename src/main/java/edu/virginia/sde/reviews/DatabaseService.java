@@ -132,9 +132,10 @@ public class DatabaseService {
 
     public boolean addReview(Review review)
     {
-        String hql = "FROM Review r WHERE r.user = :"+review.getUser()+
-                " AND r.course = :"+review.getCourse();
+        String hql = "FROM Review r WHERE r.user = : user AND r.course = :course";
         Query<Review> query = session.createQuery(hql, Review.class);
+        query.setParameter("user", review.getUser());
+        query.setParameter("course", review.getCourse());
         if(query.getResultList().isEmpty()) {
             session.persist(review);
             session.getTransaction().commit();
@@ -147,7 +148,6 @@ public class DatabaseService {
     public boolean removeReview(Review review)
     {
         try {
-            session.beginTransaction();
             session.remove(review);
             session.getTransaction().commit();
             return true;
@@ -166,8 +166,9 @@ public class DatabaseService {
 
     public ArrayList<Course> getSameMnemonicCourses(String mnemonic)
     {
-        String hql = "FROM Course c WHERE c.subjectMnemonic = :"+mnemonic;
+        String hql = "FROM Course c WHERE c.subjectMnemonic = :mnemonic";
         Query<Course> query = session.createQuery(hql, Course.class);
+        query.setParameter("mnemonic", mnemonic);
         return (ArrayList<Course>) query.getResultList();
     }
 
@@ -186,8 +187,9 @@ public class DatabaseService {
 
     public ArrayList<Course> getSameNumberCourses(int courseNumber)
     {
-        String hql = "FROM Course c WHERE c.courseNumber = :"+courseNumber;
+        String hql = "FROM Course c WHERE c.courseNumber = : number";
         Query<Course> query = session.createQuery(hql, Course.class);
+        query.setParameter("number", courseNumber);
         return (ArrayList<Course>) query.getResultList();
     }
 
@@ -206,8 +208,9 @@ public class DatabaseService {
 
     public ArrayList<Course> getSameTitleCourses(String title)
     {
-        String hql = "FROM Course c WHERE c.courseTitle = :"+title;
+        String hql = "FROM Course c WHERE c.courseTitle = :title";
         Query<Course> query = session.createQuery(hql, Course.class);
+        query.setParameter("title", title);
         return (ArrayList<Course>) query.getResultList();
     }
 
