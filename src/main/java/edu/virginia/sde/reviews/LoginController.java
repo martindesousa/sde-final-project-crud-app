@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -96,8 +97,11 @@ public class LoginController {
             return;
         }
 
-        messageLabel.setText("User Created Successfully");
         service.addUser(new User(usernameString, passwordString));
+        messageLabel.setTextFill(Color.color(0, 0.7, 0.2));
+        messageLabel.setText("User Created Successfully! You can now log in.");
+        usernameField.clear();
+        passwordField.clear();
         // Perform database operation here (e.g., saving, updating, querying)
 
 

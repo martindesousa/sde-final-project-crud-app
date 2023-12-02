@@ -5,9 +5,7 @@ import org.hibernate.Session;
 public class NewUserValidator {
 
     public static boolean validateUsername(String username, DatabaseService service){
-        User user = new User();
-        user.setUsername(username);
-        boolean usernameExists = service.usernameExists(user);
+        boolean usernameExists = service.usernameExists(username);
         return !usernameExists;
         //return !LoginValidator.validateUsername(username);
 
