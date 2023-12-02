@@ -6,7 +6,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.hibernate.Session;
 
 import java.io.IOException;
 
@@ -43,6 +45,7 @@ public class LoginController {
 
         String usernameString = usernameField.getText();
         String passwordString = passwordField.getText();
+        messageLabel.setTextFill(Color.RED);
 
         if(usernameString.equals("")){
             messageLabel.setText("Please Enter a Username");
@@ -54,12 +57,12 @@ public class LoginController {
             return;
         }
 
-        if(!LoginValidator.validateUsername(usernameString)){
+        if(!LoginValidator.validateUsername(usernameString, service)){
             messageLabel.setText("Username Not Found");
             return;
         }
 
-        if(!LoginValidator.validatePassword(usernameString,passwordString)){
+        if(!LoginValidator.validatePassword(usernameString,passwordString, service)){
             messageLabel.setText("Incorrect Password");
             return;
         }
@@ -73,6 +76,7 @@ public class LoginController {
 
         String usernameString = usernameField.getText();
         String passwordString = passwordField.getText();
+        messageLabel.setTextFill(Color.RED);
 
         if(usernameString.equals("")){
             messageLabel.setText("Please Enter a Username");
@@ -84,7 +88,7 @@ public class LoginController {
             return;
         }
 
-        if(!NewUserValidator.validateUsername(usernameString)){
+        if(!NewUserValidator.validateUsername(usernameString, service)){
             messageLabel.setText("This Username is Already Taken");
             return;
         }
@@ -93,8 +97,15 @@ public class LoginController {
             messageLabel.setText("Password Must Be at Least 8 Characters");
             return;
         }
+        User user = new User();
+        user.setUsername(usernameString);
+        user.setPassword(passwordString);
+        service.addUser(user);
+        messageLabel.setTextFill(Color.color(0, 0.7, 0.2));
+        messageLabel.setText("User Created Successfully! You can now log in.");
+        usernameField.clear();
+        passwordField.clear();
 
-        messageLabel.setText("User Created Successfully");
         //add to database
 
     }
