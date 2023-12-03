@@ -6,11 +6,12 @@
 
 <AnchorPane prefHeight="400" prefWidth="600" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.virginia.sde.reviews.CourseSearchController">
    <children>
-      <TableView fx:id="courseTable" layoutX="10.0" layoutY="72.0" onMouseClicked="#handleCourseSelection" prefHeight="242.0" prefWidth="570.0">
+      <TableView fx:id="courseTable" layoutX="10.0" layoutY="63.0" onMouseClicked="#handleCourseSelection" prefHeight="251.0" prefWidth="570.0">
         <columns>
           <TableColumn fx:id="subjectColumn" prefWidth="101.20001411437988" text="Subject" />
           <TableColumn fx:id="numberColumn" prefWidth="98.79998016357422" text="Number" />
-            <TableColumn fx:id="titleColumn" prefWidth="303.0000305175781" text="Title" />
+            <TableColumn fx:id="titleColumn" prefWidth="286.20001220703125" text="Title" />
+            <TableColumn prefWidth="81.79995727539062" text="Rating" />
         </columns>
       </TableView>
       <Button layoutX="534.0" layoutY="23.0" mnemonicParsing="false" onAction="#handleLogOut" text="Log Out" />

@@ -255,6 +255,11 @@ public class CourseSearchController {
             controller.setService(service);
             controller.setPreviousController(this);
             controller.setPreviousScene(stage.getScene());
+            controller.setCourse(newCourse);
+            controller.setUser(user);
+            controller.setTable();
+            controller.initializeReviews();
+            controller.setCourseNameLabel(newCourse.getSubjectMnemonic() +" "+ newCourse.getCourseNumber() +" "+ newCourse.getCourseTitle());
             stage.setTitle(newCourse.getCourseTitle());
             stage.setScene(newScene);
             stage.show();
@@ -282,6 +287,21 @@ public class CourseSearchController {
     }
 
     public void handleMyReviews(){
+        try {
+            var fxmlLoader = new FXMLLoader(MyReviewsController.class.getResource("my-reviews.fxml"));
+            var newScene = new Scene(fxmlLoader.load());
+            var controller = (MyReviewsController) fxmlLoader.getController();
+            controller.setStage(stage);
+            controller.setService(service);
+            controller.setPreviousController(this);
+            controller.setTable();
+            controller.setPreviousScene(stage.getScene());
+            stage.setTitle("My Reviews");
+            stage.setScene(newScene);
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 }

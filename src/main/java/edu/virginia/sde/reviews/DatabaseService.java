@@ -8,6 +8,7 @@ import org.hibernate.query.Query;
 import org.sqlite.SQLiteException;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
@@ -128,8 +129,22 @@ public class DatabaseService {
         }
     }
 
-    public boolean addReview(Review review)
+    public boolean containsReview(User user, Course course){
+        String hql = "FROM Review r WHERE r.user = : user AND r.course = :course";
+        Query<Review> query = session.createQuery(hql, Review.class);
+        query.setParameter("user", user);
+        query.setParameter("course", course);
+        if(query.getResultList().isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+    public void addReview(Review review)
     {
+        /*
         String hql = "FROM Review r WHERE r.user = : user AND r.course = :course";
         Query<Review> query = session.createQuery(hql, Review.class);
         query.setParameter("user", review.getUser());
@@ -141,11 +156,21 @@ public class DatabaseService {
         } else {
             return false;
         }
+
+         */
+        try {
+            session.beginTransaction();
+            session.persist(review);
+            session.getTransaction().commit();
+        } catch (PersistenceException e) {
+            // System.out.println("Virginia already added!");
+        }
     }
 
     public boolean removeReview(Review review)
     {
         try {
+            session.beginTransaction();
             session.remove(review);
             session.getTransaction().commit();
             return true;
@@ -153,6 +178,41 @@ public class DatabaseService {
             //ERROR OCCURRED WHEN TRYING TO REMOVE REVIEW
             return false;
         }
+    }
+
+    public void updateReview(Review review, String comment, int rating){
+        try {
+            session.beginTransaction();
+            review.setTime(new Timestamp(System.currentTimeMillis()));
+            review.setComment(comment);
+            review.setRating(rating);
+            session.getTransaction().commit();
+        } catch (PersistenceException e) {
+            //ERROR OCCURRED WHEN TRYING TO REMOVE REVIEW
+        }
+
+    }
+
+    protected Review getReview(User user, Course course ){
+        String hql = "FROM Review r WHERE r.user = : user AND r.course = :course";
+        Query<Review> query = session.createQuery(hql, Review.class);
+        query.setParameter("user", user);
+        query.setParameter("course", course);
+        return query.getSingleResult();
+    }
+
+    public ArrayList<Review> getCourseReviews(Course course){
+        String hql = "FROM Review r WHERE r.course = :course";
+        Query<Review> query = session.createQuery(hql, Review.class);
+        query.setParameter("course", course);
+        return (ArrayList<Review>) query.getResultList();
+    }
+
+    public ArrayList<Review> getUserReviews(User user){
+        String hql = "FROM Review r WHERE r.user = :user";
+        Query<Review> query = session.createQuery(hql, Review.class);
+        query.setParameter("user", user);
+        return (ArrayList<Review>) query.getResultList();
     }
 
     public ArrayList<Course> getAllCourses()

@@ -2,6 +2,8 @@ package edu.virginia.sde.reviews;
 
 import jakarta.persistence.*;
 
+import java.sql.Timestamp;
+
 @Entity
 @Table(name = "REVIEWS")
 public class Review {
@@ -24,13 +26,36 @@ public class Review {
     @Column(name = "COMMENT", nullable = false)
     private String comment;
 
-    public Review(int id, User user, int rating, Course course, String comment)
+    @Column(name = "TIME", nullable = false)
+    private Timestamp time;
+
+    /*
+
+    public String subjectMnemonic;
+    public int courseNumber;
+
+    public String getSubjectMnemonic(){
+        return course.getSubjectMnemonic();
+    }
+
+    public int getCourseNumber(){
+        return course.getCourseNumber();
+    }
+
+     */
+
+    public Review(User user, int rating, Course course, String comment, Timestamp time)
     {
-        this.id = id;
         this.user = user;
         this.rating = rating;
         this.course = course;
+        /*
+        this.subjectMnemonic = course.getSubjectMnemonic();
+        this.courseNumber = course.getCourseNumber();
+
+         */
         this.comment = comment;
+        this.time = time;
     }
 
     public Review() {
@@ -75,5 +100,13 @@ public class Review {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public void setTime(Timestamp time) {
+        this.time = time;
     }
 }

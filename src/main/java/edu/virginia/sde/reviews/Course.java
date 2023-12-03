@@ -70,4 +70,13 @@ public class Course {
         }
         return false;
     }
+
+    public boolean equals(Course otherCourse){
+        if(this.courseTitle.equals(otherCourse.courseTitle)
+                && this.courseNumber == otherCourse.courseNumber
+                && this.subjectMnemonic.equals(otherCourse.subjectMnemonic)){
+            return true;
+        }
+        return false;
+    }
 }
