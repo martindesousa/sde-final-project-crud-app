@@ -64,6 +64,7 @@ public class MyReviewsController {
     public void handleBack(){
         previousController.setStage(stage);
         previousController.setService(service);
+        previousController.handleSearch();
         stage.setTitle("Course Search");
         stage.setScene(previousScene);
         stage.show();

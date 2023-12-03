@@ -123,13 +123,10 @@ public class CourseSearchController {
         subjectColumn.setCellValueFactory(new PropertyValueFactory<Course, String>("subjectMnemonic"));
         numberColumn.setCellValueFactory(new PropertyValueFactory<Course, Integer>("courseNumber"));
         titleColumn.setCellValueFactory(new PropertyValueFactory<Course, String>("courseTitle"));
-        ratingColumn.setCellValueFactory(data -> {
-            double averageScore = data.getValue().getAvgRating();
-            if (averageScore == 0) {
-                return new SimpleStringProperty(""); // Return an empty string for average score 0
-            } else {
-                return new SimpleStringProperty(String.valueOf(averageScore)); // Display the average score
-            }
+        ratingColumn.setCellValueFactory((review) -> {
+            double averageScore = review.getValue().getAvgRating();
+            if (averageScore == 0) { return new SimpleStringProperty("");}
+            else {return new SimpleStringProperty(String.valueOf(averageScore));}
         });
         //ratingColumn.setCellValueFactory();
         courseTable.getColumns().setAll(subjectColumn, numberColumn, titleColumn,ratingColumn);
@@ -245,11 +242,11 @@ public class CourseSearchController {
 
     public void handleSearch(){
 
-        String subject = searchSubject.getText();
-        String number = searchNumber.getText();
-        String title = searchTitle.getText();
+        lastSearchSubject = searchSubject.getText();
+        lastSearchNumber = searchNumber.getText();
+        lastSearchTitle = searchTitle.getText();
 
-        setTable(SearchFactory.getMatchingCourses(service, subject, number, title));
+        setTable(SearchFactory.getMatchingCourses(service, lastSearchSubject, lastSearchNumber, lastSearchTitle));
 
     }
 

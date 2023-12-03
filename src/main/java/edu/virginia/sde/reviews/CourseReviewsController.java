@@ -148,6 +148,7 @@ public class CourseReviewsController {
     public void handleBack(){
         previousController.setStage(stage);
         previousController.setService(service);
+        previousController.handleSearch();
         stage.setTitle("Course Search");
         stage.setScene(previousScene);
         stage.show();
@@ -181,6 +182,7 @@ public class CourseReviewsController {
         errorLabel.setTextFill(Color.color(0, 0.7, 0.2));
         errorLabel.setText("Review Added");
         service.addReview(new Review(user, getRating(), course, commentArea.getText(), new Timestamp(System.currentTimeMillis())));
+        service.updateRatings(course);
         setTable();
 
     }

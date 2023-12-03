@@ -16,20 +16,21 @@ import java.util.stream.Collectors;
 
 public class DatabaseService {
 
-
+/*
 
     public static void main(String[] args) {
         java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
         Session session = HibernateUtil.getSessionFactory().openSession();
         DatabaseService service = new DatabaseService(session);
-        User me = service.getUser("ridge");
+        User me = service.getUser("user");
         List<Review> reviews = service.getUserReviews(me);
-        for(Review i :reviews){
-            System.out.println(i.getRating() + " " + i.getCourse().getCourseTitle());
-        }
+        service.updateRatings(reviews.get(0).getCourse());
+        System.out.println(reviews.get(0).getCourse().getAvgRating());
 
 
     }
+
+ */
 
 
 
@@ -92,7 +93,7 @@ public class DatabaseService {
             sum += i;
         }
 
-        double avgRating = sum / reviewRatings.size();
+        double avgRating = ((double) sum) / ((double) reviewRatings.size());
 
         try {
             session.beginTransaction();
