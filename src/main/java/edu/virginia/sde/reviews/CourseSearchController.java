@@ -123,10 +123,11 @@ public class CourseSearchController {
         subjectColumn.setCellValueFactory(new PropertyValueFactory<Course, String>("subjectMnemonic"));
         numberColumn.setCellValueFactory(new PropertyValueFactory<Course, Integer>("courseNumber"));
         titleColumn.setCellValueFactory(new PropertyValueFactory<Course, String>("courseTitle"));
+        // learned how to do simpleStringProperties from chatGPT example given in MyReviewsController.setTable()
         ratingColumn.setCellValueFactory((review) -> {
             double averageScore = review.getValue().getAvgRating();
             if (averageScore == 0) { return new SimpleStringProperty("");}
-            else {return new SimpleStringProperty(String.valueOf(averageScore));}
+            else {return new SimpleStringProperty(String.format("%.2f",averageScore));}
         });
         //ratingColumn.setCellValueFactory();
         courseTable.getColumns().setAll(subjectColumn, numberColumn, titleColumn,ratingColumn);
@@ -152,13 +153,13 @@ public class CourseSearchController {
         subjectColumn.setCellValueFactory(new PropertyValueFactory<Course, String>("subjectMnemonic"));
         numberColumn.setCellValueFactory(new PropertyValueFactory<Course, Integer>("courseNumber"));
         titleColumn.setCellValueFactory(new PropertyValueFactory<Course, String>("courseTitle"));
-        ratingColumn.setCellValueFactory(data -> {
-            double averageScore = data.getValue().getAvgRating();
-            if (averageScore == 0) {
-                return new SimpleStringProperty(""); // Return an empty string for average score 0
-            } else {
-                return new SimpleStringProperty(String.valueOf(averageScore)); // Display the average score
-            }
+
+        // learned how to do simpleStringProperties from chatGPT example given in MyReviewsController.setTable()
+
+        ratingColumn.setCellValueFactory((review) -> {
+            double averageScore = review.getValue().getAvgRating();
+            if (averageScore == 0) { return new SimpleStringProperty("");}
+            else {return new SimpleStringProperty(String.format("%.2f",averageScore));}
         });
         //ratingColumn.setCellValueFactory();
         courseTable.getColumns().setAll(subjectColumn, numberColumn, titleColumn,ratingColumn);
