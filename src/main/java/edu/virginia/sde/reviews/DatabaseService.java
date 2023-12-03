@@ -231,4 +231,22 @@ public class DatabaseService {
         }
         return returnList;
     }
+
+    public ArrayList<Course> getSimilarTitleCourses(String title)
+    {
+        return getSimilarTitleCourses(title, this.getAllCourses());
+    }
+
+    public ArrayList<Course> getSimilarTitleCourses(String title, ArrayList<Course> courses)
+    {
+        ArrayList<Course> returnList = new ArrayList<>();
+        for(Course c : courses)
+        {
+            if(c.getCourseTitle().toUpperCase().contains(title.toUpperCase()))
+            {
+                returnList.add(c);
+            }
+        }
+        return returnList;
+    }
 }

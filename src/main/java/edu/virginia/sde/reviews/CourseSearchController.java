@@ -14,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -102,6 +103,30 @@ public class CourseSearchController {
 
     }
 
+    public void setTable(ArrayList<Course> courseList){
+
+        //This code was based on the NYT best sellers tableView example
+        // and documentation of tableViews given while hovering over tableView Class
+
+        courseTable.getItems().clear();
+
+        /*
+
+        List<Course> courseList = new ArrayList<>();
+        courseList.add(new Course("abcd", 1234, "it sucked"));
+
+         */
+
+        ObservableList<Course> obvCourseList = FXCollections.observableList(courseList);
+        subjectColumn.setCellValueFactory(new PropertyValueFactory<Course, String>("subjectMnemonic"));
+        numberColumn.setCellValueFactory(new PropertyValueFactory<Course, Integer>("courseNumber"));
+        titleColumn.setCellValueFactory(new PropertyValueFactory<Course, String>("courseTitle"));
+        //ratingColumn.setCellValueFactory();
+        courseTable.getColumns().setAll(subjectColumn, numberColumn, titleColumn);
+        courseTable.getItems().addAll(obvCourseList);
+
+    }
+
     protected void setUser(User user){this.user = user;}
 
     public void setTable(String nameSearch){
@@ -123,14 +148,17 @@ public class CourseSearchController {
         subject = subject.toUpperCase();
 
         if(subject.equals("")){
+            addCourseErrorLabel.setTextFill(Color.color(1, 0, 0));
             addCourseErrorLabel.setText("Please Enter Course Subject");
             return;
         }
         if(number.equals("")){
+            addCourseErrorLabel.setTextFill(Color.color(1, 0, 0));
             addCourseErrorLabel.setText("Please Enter Course Number");
             return;
         }
         if(title.equals("")){
+            addCourseErrorLabel.setTextFill(Color.color(1, 0, 0));
             addCourseErrorLabel.setText("Please Enter Course Title");
             return;
         }
@@ -138,14 +166,17 @@ public class CourseSearchController {
 
 
         if(!NewCourseValidator.ValidateSubject(subject)) {
+            addCourseErrorLabel.setTextFill(Color.color(1, 0, 0));
             addCourseErrorLabel.setText("Course Subject Must Be 2-4 Letters");
             return;
         }
         if(!NewCourseValidator.ValidateNumber(number)) {
+            addCourseErrorLabel.setTextFill(Color.color(1, 0, 0));
             addCourseErrorLabel.setText("Course Number Must Be 4 Numbers");
             return;
         }
         if(!NewCourseValidator.ValidateTitle(title)) {
+            addCourseErrorLabel.setTextFill(Color.color(1, 0, 0));
             addCourseErrorLabel.setText("Course Title Must Be Between 1 and 50 Characters Long");
             return;
         }
@@ -153,14 +184,18 @@ public class CourseSearchController {
         int intNumber = Integer.parseInt(number);
 
         if(service.existingCourse(subject, intNumber, title)){
+            addCourseErrorLabel.setTextFill(Color.color(1, 0, 0));
             addCourseErrorLabel.setText("This Course Already Exists");
             return;
         }
-
-        addCourseErrorLabel.setText("");
+        addCourseErrorLabel.setTextFill(Color.color(0, 0.7, 0.2));
+        addCourseErrorLabel.setText("Course Successfully Added");
+        newCourseSubject.clear();
+        newCourseTitle.clear();
+        newCourseNumber.clear();
 
         service.addCourse(new Course(subject.toUpperCase(), intNumber, title));
-        setTable();
+        handleSearch();
         //add to database
         //
 
@@ -168,7 +203,11 @@ public class CourseSearchController {
 
     public void handleSearch(){
 
+        String subject = searchSubject.getText();
+        String number = searchNumber.getText();
+        String title = searchTitle.getText();
 
+        setTable(SearchFactory.getMatchingCourses(service, subject, number, title));
 
     }
 

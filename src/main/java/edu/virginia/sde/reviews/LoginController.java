@@ -47,21 +47,25 @@ public class LoginController {
         String passwordString = passwordField.getText();
 
         if(usernameString.equals("")){
+            messageLabel.setTextFill(Color.color(1, 0, 0));
             messageLabel.setText("Please Enter a Username");
             return;
         }
 
         if(passwordString.equals("")){
+            messageLabel.setTextFill(Color.color(1, 0, 0));
             messageLabel.setText("Please Enter a Password");
             return;
         }
 
         if(!service.usernameExists(usernameString)){
+            messageLabel.setTextFill(Color.color(1, 0, 0));
             messageLabel.setText("Username Not Found");
             return;
         }
 
         if(!service.passwordCorrect(usernameString,passwordString)){
+            messageLabel.setTextFill(Color.color(1, 0, 0));
             messageLabel.setText("Incorrect Password");
             return;
         }
@@ -78,21 +82,25 @@ public class LoginController {
         String passwordString = passwordField.getText();
 
         if(usernameString.equals("")){
+            messageLabel.setTextFill(Color.color(1, 0, 0));
             messageLabel.setText("Please Enter a Username");
             return;
         }
 
         if(passwordString.equals("")){
+            messageLabel.setTextFill(Color.color(1, 0, 0));
             messageLabel.setText("Please Enter a Password");
             return;
         }
 
         if(service.usernameExists(usernameString)){
+            messageLabel.setTextFill(Color.color(1, 0, 0));
             messageLabel.setText("This Username is Already Taken");
             return;
         }
 
         if(!NewUserValidator.validatePassword(passwordString)){
+            messageLabel.setTextFill(Color.color(1, 0, 0));
             messageLabel.setText("Password Must Be at Least 8 Characters");
             return;
         }
