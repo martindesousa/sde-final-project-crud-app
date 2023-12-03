@@ -59,13 +59,41 @@ public class CourseSearchController {
     private TextField newCourseTitle;
 
     @FXML
-    private TextField searchSubject;
+    public TextField searchSubject;
 
     @FXML
-    private TextField searchNumber;
+    public TextField searchNumber;
 
     @FXML
-    private TextField searchTitle;
+    public TextField searchTitle;
+
+    public String lastSearchSubject;
+    public String lastSearchNumber;
+    public String lastSearchTitle;
+
+    public String getLastSearchSubject() {
+        return lastSearchSubject;
+    }
+
+    public void setLastSearchSubject(String lastSearchSubject) {
+        this.lastSearchSubject = lastSearchSubject;
+    }
+
+    public String getLastSearchNumber() {
+        return lastSearchNumber;
+    }
+
+    public void setLastSearchNumber(String lastSearchNumber) {
+        this.lastSearchNumber = lastSearchNumber;
+    }
+
+    public String getLastSearchTitle() {
+        return lastSearchTitle;
+    }
+
+    public void setLastSearchTitle(String lastSearchTitle) {
+        this.lastSearchTitle = lastSearchTitle;
+    }
 
     private Stage stage;
 
@@ -163,8 +191,6 @@ public class CourseSearchController {
             return;
         }
 
-
-
         if(!NewCourseValidator.ValidateSubject(subject)) {
             addCourseErrorLabel.setTextFill(Color.color(1, 0, 0));
             addCourseErrorLabel.setText("Course Subject Must Be 2-4 Letters");
@@ -211,6 +237,13 @@ public class CourseSearchController {
 
     }
 
+    public void handleSearch(String subject, String number, String title){
+
+        setTable(SearchFactory.getMatchingCourses(service, subject, number, title));
+
+    }
+
+
     public void handleCourseSelection(){
         Course newCourse = courseTable.getSelectionModel().getSelectedItem();
 
@@ -220,14 +253,14 @@ public class CourseSearchController {
             var controller = (CourseReviewsController) fxmlLoader.getController();
             controller.setStage(stage);
             controller.setService(service);
+            controller.setPreviousController(this);
+            controller.setPreviousScene(stage.getScene());
             stage.setTitle(newCourse.getCourseTitle());
             stage.setScene(newScene);
             stage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-
 
     }
 

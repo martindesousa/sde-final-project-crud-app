@@ -4,7 +4,6 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.virginia.sde.reviews.CourseReviewsController">
    <children>
       <TableView layoutX="24.0" layoutY="39.0" prefHeight="246.0" prefWidth="455.0">
@@ -23,8 +22,8 @@
       <RadioButton layoutX="525.0" layoutY="184.0" mnemonicParsing="false" text="3" />
       <RadioButton layoutX="526.0" layoutY="208.0" mnemonicParsing="false" text="2" />
       <RadioButton layoutX="527.0" layoutY="232.0" mnemonicParsing="false" text="1" />
-      <Label layoutX="503.0" layoutY="40.0" text="Your Rating:" />
-      <Label layoutX="509.0" layoutY="67.0" text="(Required)" />
+      <Label layoutX="503.0" layoutY="62.0" text="Your Rating:" />
+      <Label layoutX="509.0" layoutY="83.0" text="(Required)" />
       <Label layoutX="236.0" layoutY="13.0" text="Reviews">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -32,5 +31,6 @@
       </Label>
       <Label layoutX="524.0" layoutY="109.0" text="Best" />
       <Label layoutX="522.0" layoutY="257.0" text="Worst" />
+      <Button layoutX="514.0" layoutY="22.0" mnemonicParsing="false" onAction="#handleBack" text="Back" />
    </children>
 </AnchorPane>

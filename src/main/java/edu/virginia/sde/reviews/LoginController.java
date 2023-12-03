@@ -127,6 +127,9 @@ public class LoginController {
             controller.setUser(user);
             controller.setService(service);
             controller.setTable();
+            controller.setLastSearchSubject("");
+            controller.setLastSearchNumber("");
+            controller.setLastSearchTitle("");
             stage.setTitle("Course Search");
             stage.setScene(newScene);
             stage.show();
