@@ -195,6 +195,7 @@ public class CourseReviewsController {
         }
         service.removeReview(service.getReview(user,course));
         errorLabel.setTextFill(Color.color(0, 0.7, 0.2));
+        service.updateRatings(course);
         errorLabel.setText("Successfully Removed");
         setTable();
     }
