@@ -294,7 +294,7 @@ public class CourseSearchController {
             controller.setStage(stage);
             controller.setService(service);
             controller.setPreviousController(this);
-            controller.setTable();
+            //controller.setTable();
             controller.setPreviousScene(stage.getScene());
             stage.setTitle("My Reviews");
             stage.setScene(newScene);
