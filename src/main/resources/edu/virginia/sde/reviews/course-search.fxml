@@ -10,8 +10,8 @@
         <columns>
           <TableColumn fx:id="subjectColumn" prefWidth="101.20001411437988" text="Subject" />
           <TableColumn fx:id="numberColumn" prefWidth="98.79998016357422" text="Number" />
-            <TableColumn fx:id="titleColumn" prefWidth="286.20001220703125" text="Title" />
-            <TableColumn prefWidth="81.79995727539062" text="Rating" />
+            <TableColumn fx:id="titleColumn" prefWidth="268.40000915527344" text="Title" />
+            <TableColumn fx:id="ratingColumn" prefWidth="100.39996337890625" text="Rating" />
         </columns>
       </TableView>
       <Button layoutX="534.0" layoutY="23.0" mnemonicParsing="false" onAction="#handleLogOut" text="Log Out" />

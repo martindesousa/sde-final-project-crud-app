@@ -10,7 +10,9 @@ import org.sqlite.SQLiteException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 public class DatabaseService {
 
@@ -20,9 +22,16 @@ public class DatabaseService {
         java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
         Session session = HibernateUtil.getSessionFactory().openSession();
         DatabaseService service = new DatabaseService(session);
-        service.addUser(new User("ridge","RidgeMartinJad"));
+        User me = service.getUser("ridge");
+        List<Review> reviews = service.getUserReviews(me);
+        for(Review i :reviews){
+            System.out.println(i.getRating() + " " + i.getCourse().getCourseTitle());
+        }
+
 
     }
+
+
 
     private Session session;
     public DatabaseService(Session session)
@@ -74,6 +83,25 @@ public class DatabaseService {
             return true;
         }
         return false;
+    }
+
+    public void updateRatings(Course course){
+        List<Integer> reviewRatings = getCourseReviews(course).stream().map(review -> review.getRating()).collect(Collectors.toList());
+        int sum = 0;
+        for(int i : reviewRatings){
+            sum += i;
+        }
+
+        double avgRating = sum / reviewRatings.size();
+
+        try {
+            session.beginTransaction();
+            course.setAvgRating(avgRating);
+            session.getTransaction().commit();
+        } catch (PersistenceException e) {
+            //ERROR OCCURRED WHEN TRYING TO REMOVE REVIEW
+        }
+
     }
 
 

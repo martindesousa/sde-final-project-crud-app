@@ -1,6 +1,8 @@
 package edu.virginia.sde.reviews;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -83,15 +85,25 @@ public class MyReviewsController {
 
         ObservableList<Review> obvReviewList = FXCollections.observableList(reviewList);
         ratingColumn.setCellValueFactory(new PropertyValueFactory<Review, Integer>("rating"));
-        subjectColumn.setCellValueFactory(new PropertyValueFactory<Review, String>("subjectMnemonic"));
-        numberColumn.setCellValueFactory(new PropertyValueFactory<Review, Integer>("courseNumber"));
-        //ratingColumn.setCellValueFactory();
+        // got the following snip of code from chatgpt with the following prompt
+
+        /*
+        i am in javafx and creating a TableView of class reviews. Each review has a course, an integer for rating,
+        and an integer for message. Each course has a String name and an integer number. I want my TableView to display
+        the review rating and the associated course's name and number. How would I display the course name and number
+        using cellvaluefactories?
+         */
+        subjectColumn.setCellValueFactory((review) -> new SimpleStringProperty(review.getValue().getCourse().getSubjectMnemonic()));
+        numberColumn.setCellValueFactory(review -> new SimpleIntegerProperty(review.getValue().getCourse().getCourseNumber()).asObject());
+
         reviewTable.getColumns().setAll(subjectColumn, numberColumn, ratingColumn);
+        //reviewTable.getColumns().setAll(subjectColumn);
         reviewTable.getItems().addAll(obvReviewList);
     }
 
     public void handleReviewSelection(){
         Review newReview = reviewTable.getSelectionModel().getSelectedItem();
+        if(newReview == null){return;}
         Course newCourse = newReview.getCourse();
 
         try {

@@ -171,6 +171,7 @@ public class CourseReviewsController {
         }
         if(service.containsReview(user, course)){
             service.updateReview(service.getReview(user,course), commentArea.getText(), getRating());
+            service.updateRatings(course);
             //update course rating
             errorLabel.setTextFill(Color.color(0, 0.7, 0.2));
             errorLabel.setText("Review Updated");
@@ -194,10 +195,6 @@ public class CourseReviewsController {
         errorLabel.setTextFill(Color.color(0, 0.7, 0.2));
         errorLabel.setText("Successfully Removed");
         setTable();
-    }
-
-    public void handleMyReviews(){
-
     }
 
 

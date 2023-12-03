@@ -2,6 +2,7 @@ package edu.virginia.sde.reviews;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import javafx.beans.Observable;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -35,11 +36,8 @@ public class CourseSearchController {
     @FXML
     public TableColumn<Course, String> titleColumn;
 
-    /*
     @FXML
-    public TableColumn<Course, Double> ratingColumn;
-
-     */
+    public TableColumn<Course, String> ratingColumn;
 
     private User user;
 
@@ -125,8 +123,16 @@ public class CourseSearchController {
         subjectColumn.setCellValueFactory(new PropertyValueFactory<Course, String>("subjectMnemonic"));
         numberColumn.setCellValueFactory(new PropertyValueFactory<Course, Integer>("courseNumber"));
         titleColumn.setCellValueFactory(new PropertyValueFactory<Course, String>("courseTitle"));
+        ratingColumn.setCellValueFactory(data -> {
+            double averageScore = data.getValue().getAvgRating();
+            if (averageScore == 0) {
+                return new SimpleStringProperty(""); // Return an empty string for average score 0
+            } else {
+                return new SimpleStringProperty(String.valueOf(averageScore)); // Display the average score
+            }
+        });
         //ratingColumn.setCellValueFactory();
-        courseTable.getColumns().setAll(subjectColumn, numberColumn, titleColumn);
+        courseTable.getColumns().setAll(subjectColumn, numberColumn, titleColumn,ratingColumn);
         courseTable.getItems().addAll(obvCourseList);
 
     }
@@ -149,8 +155,18 @@ public class CourseSearchController {
         subjectColumn.setCellValueFactory(new PropertyValueFactory<Course, String>("subjectMnemonic"));
         numberColumn.setCellValueFactory(new PropertyValueFactory<Course, Integer>("courseNumber"));
         titleColumn.setCellValueFactory(new PropertyValueFactory<Course, String>("courseTitle"));
+        ratingColumn.setCellValueFactory(data -> {
+            double averageScore = data.getValue().getAvgRating();
+            if (averageScore == 0) {
+                return new SimpleStringProperty(""); // Return an empty string for average score 0
+            } else {
+                return new SimpleStringProperty(String.valueOf(averageScore)); // Display the average score
+            }
+        });
         //ratingColumn.setCellValueFactory();
-        courseTable.getColumns().setAll(subjectColumn, numberColumn, titleColumn);
+        courseTable.getColumns().setAll(subjectColumn, numberColumn, titleColumn,ratingColumn);
+        //ratingColumn.setCellValueFactory();
+        courseTable.getColumns().setAll(subjectColumn, numberColumn, titleColumn,ratingColumn);
         courseTable.getItems().addAll(obvCourseList);
 
     }
@@ -246,6 +262,7 @@ public class CourseSearchController {
 
     public void handleCourseSelection(){
         Course newCourse = courseTable.getSelectionModel().getSelectedItem();
+        if(newCourse == null){return;}
 
         try {
             var fxmlLoader = new FXMLLoader(CourseReviewsController.class.getResource("course-reviews.fxml"));
@@ -294,7 +311,8 @@ public class CourseSearchController {
             controller.setStage(stage);
             controller.setService(service);
             controller.setPreviousController(this);
-            //controller.setTable();
+            controller.setUser(user);
+            controller.setTable();
             controller.setPreviousScene(stage.getScene());
             stage.setTitle("My Reviews");
             stage.setScene(newScene);

@@ -34,7 +34,7 @@
       </Label>
       <Label layoutX="524.0" layoutY="109.0" text="Best" />
       <Label layoutX="522.0" layoutY="257.0" text="Worst" />
-      <Button layoutX="516.0" layoutY="22.0" mnemonicParsing="false" onAction="#handleBack" text="Back" />
+      <Button layoutX="490.0" layoutY="22.0" mnemonicParsing="false" onAction="#handleBack" text="Back to Search" />
       <Label fx:id="courseNameLabel" alignment="TOP_CENTER" layoutX="24.0" layoutY="14.0" prefHeight="18.0" prefWidth="455.0" />
       <Label fx:id="errorLabel" alignment="TOP_CENTER" layoutX="24.0" layoutY="278.0" prefHeight="18.0" prefWidth="455.0" textFill="RED" />
    </children>

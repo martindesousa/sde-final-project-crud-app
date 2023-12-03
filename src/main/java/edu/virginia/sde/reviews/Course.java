@@ -19,16 +19,28 @@ public class Course {
     @Column(name = "COURSE_TITLE", nullable = false)
     private String courseTitle;
 
+    @Column(name = "AVG_RATING", nullable = false)
+    private double avgRating;
+
     public Course(String subjectMnemonic, int courseNumber, String courseTitle) {
         //this.id = id;
         this.courseNumber = courseNumber;
         this.subjectMnemonic = subjectMnemonic;
         this.courseTitle = courseTitle;
+        this.avgRating = 0;
     }
 
     public Course()
     {
 
+    }
+
+    public double getAvgRating() {
+        return avgRating;
+    }
+
+    public void setAvgRating(double avgRating) {
+        this.avgRating = avgRating;
     }
 
     public int getId() {
