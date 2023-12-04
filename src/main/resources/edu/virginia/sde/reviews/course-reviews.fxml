@@ -18,7 +18,7 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <Button layoutX="503.0" layoutY="316.0" mnemonicParsing="false" onAction="#handleSubmitReview" prefHeight="26.0" prefWidth="70.0" text="Submit" />
+      <Button fx:id="submitButton" layoutX="503.0" layoutY="316.0" mnemonicParsing="false" onAction="#handleSubmitReview" prefHeight="26.0" prefWidth="70.0" text="Submit" />
       <Button layoutX="504.0" layoutY="350.0" mnemonicParsing="false" onAction="#handleDelete" prefHeight="26.0" prefWidth="70.0" text="Delete" />
       <RadioButton fx:id="rating5" layoutX="525.0" layoutY="134.0" mnemonicParsing="false" text="5" />
       <RadioButton fx:id="rating4" layoutX="525.0" layoutY="159.0" mnemonicParsing="false" text="4" />

@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -12,8 +13,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class CourseReviewsController {
 
@@ -70,6 +73,9 @@ public class CourseReviewsController {
     @FXML
     public TextArea commentArea;
 
+    @FXML
+    public Button submitButton;
+
 
     public void setStage(Stage stage){
         this.stage = stage;
@@ -100,6 +106,7 @@ public class CourseReviewsController {
             if(rating == 3){rating3.setSelected(true);}
             if(rating == 2){rating2.setSelected(true);}
             if(rating == 1){rating1.setSelected(true);}
+            submitButton.setText("Edit");
         }
     }
 
@@ -171,11 +178,18 @@ public class CourseReviewsController {
             return;
         }
         if(service.containsReview(user, course)){
-            service.updateReview(service.getReview(user,course), commentArea.getText(), getRating());
-            service.updateRatings(course);
             //update course rating
-            errorLabel.setTextFill(Color.color(0, 0.7, 0.2));
-            errorLabel.setText("Review Updated");
+            if (service.getReview(user, course).getComment().equals(commentArea.getText()) && service.getReview(user, course).getRating() == getRating())
+            {
+                errorLabel.setTextFill(Color.color(1, 0, 0));
+                errorLabel.setText("Review is Unchanged");
+            }
+            else {
+                service.updateReview(service.getReview(user,course), commentArea.getText(), getRating());
+                service.updateRatings(course);
+                errorLabel.setTextFill(Color.color(0, 0.7, 0.2));
+                errorLabel.setText("Review Updated");
+            }
             setTable();
             return;
         }
@@ -183,6 +197,7 @@ public class CourseReviewsController {
         errorLabel.setText("Review Added");
         service.addReview(new Review(user, getRating(), course, commentArea.getText(), new Timestamp(System.currentTimeMillis())));
         service.updateRatings(course);
+        submitButton.setText("Edit");
         setTable();
 
     }
@@ -197,6 +212,7 @@ public class CourseReviewsController {
         errorLabel.setTextFill(Color.color(0, 0.7, 0.2));
         service.updateRatings(course);
         errorLabel.setText("Successfully Removed");
+        submitButton.setText("Submit");
         setTable();
     }
 
