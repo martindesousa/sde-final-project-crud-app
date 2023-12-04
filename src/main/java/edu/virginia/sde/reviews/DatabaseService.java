@@ -87,23 +87,37 @@ public class DatabaseService {
     }
 
     public void updateRatings(Course course){
-        List<Integer> reviewRatings = getCourseReviews(course).stream().map(review -> review.getRating()).collect(Collectors.toList());
-        int sum = 0;
-        for(int i : reviewRatings){
-            sum += i;
+
+        if (getCourseReviews(course).isEmpty()) //THIS HAPPENS IF THERE IS 1 REVIEW LEFT AND IT GETS DELETED, IN ORDER TO PREVENT "NOT NULL" ERROR
+        {
+            try {
+                session.beginTransaction();
+                course.setAvgRating(0);
+                session.getTransaction().commit();
+            } catch (PersistenceException e) {
+                //ERROR OCCURRED WHEN TRYING TO REMOVE REVIEW
+            }
         }
+        else {
+            List<Integer> reviewRatings = getCourseReviews(course).stream().map(review -> review.getRating()).collect(Collectors.toList());
+            int sum = 0;
+            for (int i : reviewRatings) {
+                sum += i;
+            }
 
-        double avgRating = ((double) sum) / ((double) reviewRatings.size());
+            double avgRating = ((double) sum) / ((double) reviewRatings.size());
 
-        try {
-            session.beginTransaction();
-            course.setAvgRating(avgRating);
-            session.getTransaction().commit();
-        } catch (PersistenceException e) {
-            //ERROR OCCURRED WHEN TRYING TO REMOVE REVIEW
+            try {
+                session.beginTransaction();
+                course.setAvgRating(avgRating);
+                session.getTransaction().commit();
+            } catch (PersistenceException e) {
+                //ERROR OCCURRED WHEN TRYING TO REMOVE REVIEW
+            }
         }
 
     }
+
 
 
     public boolean existingCourse(String mnemonic, int number, String title)
