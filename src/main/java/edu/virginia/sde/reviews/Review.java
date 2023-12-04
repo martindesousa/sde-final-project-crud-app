@@ -12,14 +12,14 @@ public class Review {
     @Column(name = "ID")
     private int id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "USERNAME")
     private User user;
 
     @Column(name = "RATING", nullable = false)
     private int rating;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "COURSE")
     private Course course;
 
