@@ -135,6 +135,10 @@ public class CourseSearchController {
 
     }
 
+    public void handleShowAll(){
+        handleSearch("","","");
+    }
+
     public void setTable(ArrayList<Course> courseList){
 
         //This code was based on the NYT best sellers tableView example

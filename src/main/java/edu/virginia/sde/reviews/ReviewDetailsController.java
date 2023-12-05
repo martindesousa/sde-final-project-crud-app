@@ -33,10 +33,10 @@ public class ReviewDetailsController {
     public String title;
 
     @FXML
-    public TextField dateField;
+    public Text dateField;
 
     @FXML
-    public TextArea reviewComment;
+    public Text reviewComment;
 
     @FXML
     public Text reviewRating;
