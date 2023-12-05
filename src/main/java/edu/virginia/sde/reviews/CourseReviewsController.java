@@ -216,6 +216,22 @@ public class CourseReviewsController {
         setTable();
     }
 
+    public void handleFullReview(){
+        try {
+            var fxmlLoader = new FXMLLoader(CourseSearchController.class.getResource("review-details.fxml"));
+            var newScene = new Scene(fxmlLoader.load());
+            var controller = (CourseSearchController) fxmlLoader.getController();
+            controller.setStage(stage);
+            controller.setService(service);
+            //controller.setTe
+            stage.setTitle("Review Details");
+            stage.setScene(newScene);
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 
 

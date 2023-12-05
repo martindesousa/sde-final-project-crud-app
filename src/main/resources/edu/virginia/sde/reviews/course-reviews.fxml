@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.virginia.sde.reviews.CourseReviewsController">
    <children>
-      <TableView fx:id="reviewTable" layoutX="24.0" layoutY="62.0" prefHeight="211.0" prefWidth="455.0">
+      <TableView fx:id="reviewTable" layoutX="24.0" layoutY="62.0" onMouseClicked="#handleFullReview" prefHeight="211.0" prefWidth="455.0">
         <columns>
           <TableColumn fx:id="ratingColumn" prefWidth="94.40000343322754" text="Score" />
           <TableColumn fx:id="commentColumn" prefWidth="245.79998779296875" text="Comment" />
