@@ -217,13 +217,24 @@ public class CourseReviewsController {
     }
 
     public void handleFullReview(){
+        Review review  = reviewTable.getSelectionModel().getSelectedItem();
+        if(review == null){return;}
+
         try {
-            var fxmlLoader = new FXMLLoader(CourseSearchController.class.getResource("review-details.fxml"));
+            var fxmlLoader = new FXMLLoader(ReviewDetailsController.class.getResource("review-details.fxml"));
             var newScene = new Scene(fxmlLoader.load());
-            var controller = (CourseSearchController) fxmlLoader.getController();
+            var controller = (ReviewDetailsController) fxmlLoader.getController();
             controller.setStage(stage);
             controller.setService(service);
-            //controller.setTe
+            controller.setPreviousController(this);
+            controller.setReview(review);
+
+            controller.setDate(review.getTime());
+            controller.setComment(review.getComment());
+            controller.setTitle(review.getCourse().getCourseTitle());
+            controller.setRating(review.getRating());
+
+            controller.setTexts();
             stage.setTitle("Review Details");
             stage.setScene(newScene);
             stage.show();
