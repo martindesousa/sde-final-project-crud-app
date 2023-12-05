@@ -199,7 +199,6 @@ public class CourseReviewsController {
         service.updateRatings(course);
         submitButton.setText("Edit");
         setTable();
-
     }
 
     public void handleDelete(){
@@ -227,6 +226,7 @@ public class CourseReviewsController {
             controller.setStage(stage);
             controller.setService(service);
             controller.setPreviousController(this);
+            controller.setPreviousScene(stage.getScene());
             controller.setReview(review);
 
             controller.setDate(review.getTime());
