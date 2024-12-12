@@ -2,8 +2,8 @@
 # Homework 6 - Responding to Change
 
 ## Authors
-1) Ridge Redding, usy7dp, [GitHub profile name]
-2) Name, netid, [GitHub profile name]
+1) Ridge Redding, usy7dp, [ridgeredd]
+2) Jad Beidas, afu4pv, [jadbeidas]
 3) Martin Desousa, crx7jg, [martindesousa]
 
 ## To Run
@@ -24,11 +24,11 @@ List the primary contributions of each author. It is recommended to update this 
 * made minor tweaks to database like adding an average score column to each course
 * designed couple of methods in DataBase Service class such as containsReview, updateRatings, and updateReview to fit needs
 
-### [Author 2 - replace this with their name]
+### Jad Beidas
 
-* 
-* as a bulleted list
-* each line starts with an asterisk and a space
+* Created course and review entities and functions for database usage
+* Worked on Database Service functions for interacting with Classes and Reviews in the database, including searching classes
+* Created fxml page and controller logic for review-details
 
 
 ### Martin Desousa
